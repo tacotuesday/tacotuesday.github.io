@@ -1,7 +1,7 @@
 #-------------------------------
 # Site Settings
-title: Priam
-description: Priam is a minimal portfolio theme for Jekyll.
+title: Grafton Cook
+description: Grafton is a seasoned Data Scientist and Analyst with a robust background in quantitative analysis and mechanical engineering. His journey began with a passion for understanding complex mechanical systems and leveraging data to drive impactful decisions. Over the years, Grafton has become an expert in transforming raw data into actionable insights that propel businesses forward.
 color_scheme: auto # You have the option to choose between three modes: auto, light, and dark. The default mode is set to auto, which means that the color scheme will automatically adapt based on your operating system settings. This way, you can enjoy a personalized experience without having to manually switch between light and dark modes.
 
 
@@ -26,25 +26,23 @@ menu_settings:
       url: '/'
     - title: '🚀 Projects'
       url: '/projects/'
-    - title: '🎬 Videos'
-      url: '/videos/'
     - title: '👨🏻‍💻 About'
       url: '/about/'
-    - title: '📷 Gallery'
-      url: '/gallery/'
+    # - title: '📷 Gallery'
+    #   url: '/gallery/'
     - title: '✍️ Blog'
       url: '/blog/'
-    - title: '📔 Elements'
-      url: '/elements/'
+    # - title: '📔 Elements'
+    #   url: '/elements/'
 
 
 #-------------------------------
 # Author Settings
 author:
-  author_name: Dave Nixon
-  author_role: Web Designer
-  author_bio: 👨🏻‍💻 Geeky Web Designer ⭐️ Helping businesses create stunning online experiences 💡 Passionate about user-centered design and seamless functionality 🔥 Adobe Creative Suite expert ✨ Lover of clean code and responsive layouts 🚀 Let's turn your ideas into captivating websites together!
-  author_avatar: '/images/01-1.jpg'
+  author_name: Grafton Cook
+  author_role: Data Analyst
+  author_bio: 🚀 Experienced Data Analyst | 🔍 Specialist in SQL, Python & Tableau | 📊 9+ Years of Expertise in Quantitative Analysis | 📈 Turning Complex Data into Clear, Concise, and Impactful Insights | 🔧 Let's unlock the potential of your data together!
+  author_avatar: '/images/headshot-1.jpg'
   cta_button_text: Get In Touch
   cta_button_link: '/contact/'
 
@@ -92,7 +90,7 @@ blog_settings:
 #-------------------------------
 # Videos Settings
 videos_settings:
-  enable: true
+  enable: false
   videos_title: Videos
   videos_description:
 
@@ -100,7 +98,7 @@ videos_settings:
 #-------------------------------
 # Gallery Section
 gallery_settings:
-  enable: true
+  enable: false
   gallery_title: Gallery
   gallery_description:
 
@@ -108,7 +106,7 @@ gallery_settings:
 #-------------------------------
 # Newsletter Settings
 mailchimp_settings:
-  enable: true
+  enable: false
   mailchimp_identifier: gmail.us21.list-manage.com/subscribe/post?u=8aeb9c31a5c97a3a5f9ff2740&amp;id=0e31fd7793&amp # Add your MailChimp form identifier. For example - gmail.us21.list-manage.com/subscribe/post?u=8aeb9c31a5c97a3a5f9ff2740&amp;id=0e31fd7793&amp
   mailchimp_title: Get interesting news
   mailchimp_description: Subscribe to our newsletter and we’ll send you the emails of latest posts.
@@ -119,16 +117,9 @@ mailchimp_settings:
 #-------------------------------
 # Social Icons Settings
 social:
-- {icon: "fa-brands fa-facebook", name: "Facebook", link: "https://facebook.com"}
-- {icon: "fa-brands fa-x-twitter", name: "Twitter", link: "https://twitter.com"}
-- {icon: "fa-brands fa-github", name: "Github", link: "https://github.com"}
-- {icon: "fa-brands fa-instagram", name: "Instagram", link: "https://instagram.com"}
-- {icon: "fa-brands fa-tiktok", name: "Tiktok", link: "https://tiktok.com"}
-- {icon: "fa-brands fa-youtube", name: "Youtube", link: "https://youtube.com"}
-- {icon: "fa-brands fa-pinterest", name: "Pinterest", link: "https://pinterest.com"}
-- {icon: "fa-brands fa-dribbble", name: "Dribbble", link: "https://dribbble.com"}
-- {icon: "fa-brands fa-microsoft", name: "Microsoft", link: "https://microsoft.com"}
-- {icon: "fa-brands fa-vimeo-v", name: "Vimeo", link: "https://vimeo.com"}
+- {icon: "fa-brands fa-linkedin", name: "LinkedIn", link: "https://www.linkedin.com/in/graftoncook"}
+- {icon: "fa-brands fa-github", name: "Github", link: "https://github.com/tacotuesday"}
+- {icon: "fa-brands fa-x-twitter", name: "Twitter", link: "https://x.com/migasmonday"}
 
 # Example of adding a new link to the footer - {icon: "fa-brands fa-dribbble", name: "Dribbble" link: "https://dribbble.com"}
 # Other icons can be found at https://fontawesome.com/search?o=r&m=free
