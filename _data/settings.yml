@@ -9,7 +9,7 @@ color_scheme: auto # You have the option to choose between three modes: auto, li
 # Global Cover
 global_cover:
   enable: true
-  homepage_image: "/images/01.jpg" # This line allows you to add a beautiful image at the top of your site, creating an eye-catching visual element that enhances the overall appearance and appeal.
+  homepage_image: "/images/lewis-kang-100daysofcode-unsplash.jpg" # This line allows you to add a beautiful image at the top of your site, creating an eye-catching visual element that enhances the overall appearance and appeal.
 
 
 #-------------------------------
