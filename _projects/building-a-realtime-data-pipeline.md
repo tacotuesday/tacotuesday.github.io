@@ -3,7 +3,7 @@ title: "Building a Real-Time Data Pipeline with AWS Kinesis and Redshift: Lesson
 description: I built a streaming data pipeline using AWS Kinesis and Redshift in this project. This was part of a series of projects to enhance my skills in creating robust data pipelines for analytics and reporting. Although this was my first experience with AWS Kinesis, I successfully created a data streaming pipeline and gained valuable insights into advanced deployment and data transformation techniques.
 date: 2024-07-04 15:01:35 +0300
 label: "streaming pipelines"
-image: '/images/project-1.jpg'
+image: '/images/old_pipelines.jpg'
 page_cover:
 ---
  ## The Problem
