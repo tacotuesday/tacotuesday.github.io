@@ -48,7 +48,6 @@ Next, I created a Redshift cluster using the AWS web client and used the Redshif
 - Parsing JSON strings to extract and analyze data.
 - Importance of region alignment in AWS resource management.
 
-[Insert screenshot of Redshift materialized view here]
 <div class="page__gallery__wrapper">
   <div class="page__gallery__images">
     <img src="/images/redshift_materialized_view.png" loading="lazy" alt="Project">
