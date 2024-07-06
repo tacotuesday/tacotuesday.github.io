@@ -14,9 +14,9 @@ Hi, I’m Grafton! I’m passionate about the stories data can tell and the stra
 <!-- visualizations from my projects-->
 <div class="page__gallery__wrapper">
   <div class="page__gallery__images">
-    <img src="/images/01-3.jpg" loading="lazy">
-    <img src="/images/01-4.jpg" loading="lazy">
-    <img src="/images/01-5.jpg" loading="lazy">
+    <img src="/images/qq_plots.png" loading="lazy">
+    <img src="/images/scaled_df_pairplot.png" loading="lazy">
+    <img src="/images/spy_pf_ts.png" loading="lazy">
   </div>
 </div>
 

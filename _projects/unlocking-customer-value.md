@@ -3,8 +3,7 @@ title: "Unlocking Customer Value: A Data-Driven Approach for Summit Outfitters"
 description: Understanding customer behavior is crucial for success in today's competitive retail landscape. This case study explores how data analysis can reveal valuable insights about customer segments and inform marketing strategies. While our subject, Summit Outfitters, is a fictional company, the analysis techniques and insights apply to real-world scenarios in the outdoor retail industry.
 date: 2024-07-05
 label: "customer segmentation"
-image: '/images/project-4.jpg'
-# Need ![Annual Income vs Total Spend](path_to_income_vs_spend_scatter_plot.png) as the first image
+image: '/images/spy_pf_ts.png'
 ---
 ## The Problem
 
@@ -21,13 +20,23 @@ As the sole data analyst on this project, I dove into the customer data using ad
 
 I started by thoroughly examining the customer data, cleaning it, and deriving new features to gain deeper insights.
 
-![Pairplot of Scaled Dataset](path_to_pairplot.png)
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/scaled_df_pairplot.png" loading="lazy" alt="Project">
+  </div>
+  <em>Pairplot of the scaled DataFrame</em>
+</div>
 
 ### 2. Identifying Most Valuable Customers
 
 I employed various clustering algorithms to segment the customer base, including DBSCAN, Hierarchical Agglomerative Clustering, and Gaussian Mixture Models (GMM). GMM proved the most effective for this dataset.
 
-![3D Scatter Plot of Customer Value](path_to_3d_scatter_plot.png)
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/gmm_clustering.png" loading="lazy" alt="Project">
+  </div>
+  <em>Clustering the customers on total spend vs. annual income</em>
+</div>
 
 ## Solution
 
@@ -48,7 +57,12 @@ I identified several customer segments ripe for targeted marketing efforts:
 - Frequent buyers with lower total spend: Ideal for upselling to premium products
 - Long-term customers with consistent spending: Perfect for exclusive offers and early access to new products
 
-![Customer Segments by Spending Patterns](path_to_gmm_clustering_plot.png)
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/last_purchase_engagement.png" loading="lazy" alt="Project">
+  </div>
+  <em>Identifying customers by engagement.</em>
+</div>
 
 ## Results
 
@@ -65,7 +79,12 @@ Based on my findings, I developed the following strategies:
 
 While Summit Outfitters is a fictional company, this case study demonstrates the power of data analytics in understanding customer behavior and informing business strategies. By leveraging these techniques, outdoor retail companies can gain valuable insights into their customer base, guide their marketing efforts, and position themselves for sustainable growth in a competitive market.
 
-![Customer Engagement and Purchase Frequency](path_to_last_purchase_vs_num_purchases_plot.png)
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/total_spend3d.png" loading="lazy" alt="Project">
+  </div>
+  <em>Beware of plotting derived metrics</em>
+</div>
 
 Remember, the key to success is continuous analysis and adaptation. Applying these techniques to your data will uncover unique insights to drive your business forward.
 

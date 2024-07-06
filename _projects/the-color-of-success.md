@@ -3,8 +3,7 @@ title: "The Color of Success: Optimizing Ad Click-Through Rates"
 description: In the world of digital advertising, every detail matters. Today, I'm diving into a fascinating case study that explores how something as simple as text color can significantly impact the success of online advertisements. Join me as I uncover insights that could revolutionize your advertising strategy.
 date: 2024-07-05
 label: "multivariate testing"
-image: '/images/project-4.jpg'
-# Need ![Histogram of click-through rates by color](path_to_histogram_of_avg_clicks.png)
+image: '/images/color_box_plot.png'
 ---
 ## The Problem
 
@@ -21,7 +20,12 @@ I tackled this challenge using a data-driven approach, employing various statist
    - Two-sample t-tests
    - Chi-square test
 
-![Q-Q plots for top colors](path_to_qq_plots.png)
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/qq_plots.png" loading="lazy" alt="Project">
+  </div>
+  <em>Q-Q plots for top colors</em>
+</div>
 
 ## Solution
 
@@ -32,6 +36,7 @@ My analysis revealed some surprising results:
 3. **Statistically significant difference**: The difference in click-through rates between Ultramarine and Blue was statistically significant, even after applying the Bonferroni correction for multiple comparisons.
 
 ![Bar plot comparing top colors](path_to_barplot_of_top_colors.png)
+
 
 ## Results
 
@@ -45,7 +50,12 @@ This case study offers several key takeaways:
 2. **Importance of statistical rigor**: Using robust statistical methods is crucial to derive meaningful insights.
 3. **Continuous testing is vital**: Regularly testing and monitoring ad performance can lead to significant improvements.
 
-![Chi-square residuals plot](path_to_chi_square_residuals.png)
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/chi-square-residuals.png" loading="lazy" alt="Project">
+  </div>
+  <em>Standardized Chi-square residuals</em>
+</div>
 
 ## Actionable Insights
 
