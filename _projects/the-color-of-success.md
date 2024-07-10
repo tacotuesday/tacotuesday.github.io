@@ -35,12 +35,21 @@ My analysis revealed some surprising results:
 2. **Ultramarine takes the crown**: Ultramarine emerged as the color with the highest click-through rate, followed by Sapphire, Aquamarine, and Teal.
 3. **Statistically significant difference**: The difference in click-through rates between Ultramarine and Blue was statistically significant, even after applying the Bonferroni correction for multiple comparisons.
 
-![Bar plot comparing top colors](path_to_barplot_of_top_colors.png)
-
 
 ## Results
 
-The analysis showed that Ultramarine significantly outperformed blue in terms of click-through rates. This finding was validated through rigorous statistical testing, ensuring the reliability of the results.
+Blue does not have the highest click-through rate. The colors with higher click-through rates are Ultramarine, Sapphire, Aquamarine, and Teal. Practically and statistically, ultramarine has the highest click-through rate: not only against blue, but also against aquamarine, its closest competitor. Thus **the stakeholder should consider using ultramarine as the primary color for their ads if they want to maximize click-through rates and are constrained to only one color.** 
+
+It is worth noting that the choice of analysis may have affected the statistical significance. For example, using a non-parametric test like permutation or Kruskal-Wallis against the entire dataset may have yielded different results with respect to statistical significance. It is important to remember that **ultramarine was also the color with the highest practical click-through rate by a significant margin in the dataset**, which is most likely reason enough to change to that color considering the low switching costs in this specific scenario. 
+
+In situations like this, it is helpful to have an alternative approach to validate the results. I confirmed the t-test results by using a Bonferroni-corrected chi-square test, which showed that the color of the ad text significantly influenced the click-through rate.
+
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/chi-square-residuals.png" loading="lazy" alt="Project">
+  </div>
+  <em>Standardized Chi-square residuals</em>
+</div>
 
 ## Lessons Learned
 
@@ -50,12 +59,6 @@ This case study offers several key takeaways:
 2. **Importance of statistical rigor**: Using robust statistical methods is crucial to derive meaningful insights.
 3. **Continuous testing is vital**: Regularly testing and monitoring ad performance can lead to significant improvements.
 
-<div class="page__gallery__wrapper">
-  <div class="page__gallery__images">
-    <img src="/images/chi-square-residuals.png" loading="lazy" alt="Project">
-  </div>
-  <em>Standardized Chi-square residuals</em>
-</div>
 
 ## Actionable Insights
 

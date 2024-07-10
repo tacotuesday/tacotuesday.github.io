@@ -33,9 +33,9 @@ I employed various clustering algorithms to segment the customer base, including
 
 <div class="page__gallery__wrapper">
   <div class="page__gallery__images">
-    <img src="/images/gmm_clustering.png" loading="lazy" alt="Project">
+    <img src="/images/cluster_quality_comparison.png" loading="lazy" alt="Project">
   </div>
-  <em>Clustering the customers on total spend vs. annual income</em>
+  <em>Comparing the quality of clustering algorithms for this dataset</em>
 </div>
 
 ## Solution
@@ -46,8 +46,14 @@ My analysis revealed that the most valuable customers in this scenario share the
 - Annual income: $158,000-$186,000
 - Total spend: $7,552-$9,226
 - Purchase frequency: 3-8 times per year
+- Customer tenure: 6-15 years
 
-![Customer Characteristics Distributions](path_to_histogram_grid.png)
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/gmm_clustering.png" loading="lazy" alt="Project">
+  </div>
+  <em>Clustering the customers on total spend vs. annual income</em>
+</div>
 
 ### 3. Uncovering Cross-Selling and Up-Selling Opportunities
 
@@ -68,12 +74,18 @@ I identified several customer segments ripe for targeted marketing efforts:
 
 Based on my findings, I developed the following strategies:
 
-1. Tailored marketing campaigns for the 30-55 age group
-2. Development of premium products and VIP experiences
-3. Implementation of a loyalty program rewarding long-term, high-value customers
-4. Concierge customer service for top-tier customers
+1. Develop marketing campaigns to appeal to the 30-55 age group, emphasizing product characteristics likely to appeal to this demographic, like quality, value, and reliability.
+2. Develop premium products and experiences, such as VIP promotional and in-store networking events, high-end product bundles, and exclusive product customization options.
+3. Implement concierge customer service for high-value customers, providing personalized recommendations, early access to new products, and dedicated support channels.
+4. Implement a loyalty program based on length of time as a customer and total spend, offering exclusive benefits and rewards to long-term, high-value customers.
+5. Introduce incentives for customers making more than 3-8 purchases per year to encourage more frequent interactions.
 
-![Customer Relationship Duration vs Total Spend](path_to_years_vs_spend_plot.png)
+<div class="page__gallery__wrapper">
+  <div class="page__gallery__images">
+    <img src="/images/years_vs_total_spend.png" loading="lazy" alt="Project">
+  </div>
+  <em>Tenure vs. total spend</em>
+</div>
 
 ## Lessons Learned
 

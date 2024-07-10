@@ -128,11 +128,8 @@ social:
 #-------------------------------
 # Contact Settings
 contact:
-  email: your@email.com # Add your form_id
-  description: Priam comes with a built-in contact form, that you can use with Formspree service to handle up to 50 submissions per month for free. You could also easily switch to another contact form service if you want. # Add a description of your form
-
-# NOTE
-# Priam theme comes with a contact form built-in. You can use this form with Formspree (https://formspree.io/) service and get up to 50 submissions for free. Also, you can easily switch to another service if you want.
+  email: xldrdrrg # Add your form_id
+  description: Got questions or need more information? I'd love to hear from you! If you have inquiries about my work or potential collaborations or want to connect, feel free to message me. Fill out the form below, and I'll get back to you as soon as possible. Let's start a conversation!
 
 
 #-------------------------------
@@ -142,4 +139,4 @@ disqus-identifier: anvod-studio-test # Add your shortname for Disqus Comment. Fo
 
 #-------------------------------
 # Google Analytics
-google-analytics: # Add your GA Tracking Id
+google-analytics: G-0S2P05DJMR
