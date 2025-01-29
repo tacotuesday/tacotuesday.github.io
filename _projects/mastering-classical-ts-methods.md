@@ -1,6 +1,6 @@
 ---
 title: "Mastering Classical Time Series Methods for Real-World Forecasting Challenges"
-description: While machine learning methods are increasingly popular for time series, classical methods remain valuable. Let's look at a structured approach to analyzing time series using classical methods like moving average, ARIMA, and SARIMA. This project provides a foundation for mastering time series forecasting and understanding the nuances of classical methods.
+description: While machine learning and deep learning methods are increasingly popular for time series, classical methods remain valuable. Let's look at a structured approach to analyzing time series using classical methods like moving average, ARIMA, and SARIMA. This project provides a foundation for mastering time series forecasting and understanding the nuances of classical methods.
 date: 2025-01-26 09:52:00 +0300
 label: "time series", "forecasting", "ARIMA", "SARIMA", "moving average"
 image: '/images/old_pipelines.jpg'
@@ -8,7 +8,14 @@ page_cover:
 ---
  ## Introduction
 
-Talk about the importance of classical time series methods in forecasting and how they provide a solid foundation for understanding more complex models. 
+While machine learning and deep learning methods are increasingly popular for time series, classical methods remain valuable for many forecasting tasks, and the underlying principles are essential to understand. In this project, we'll explore a structured approach to analyzing time series using classical methods like moving average, ARIMA, and SARIMA. By mastering these techniques, you'll gain a solid foundation in time series forecasting and understand the nuances of classical methods.
+
+
+The autoregressive (AR) technique was invented in 1927 by Udny Yule, who regressed a variable on its own lagged values, meaning that the current value is driven by a linear combination of immediately preceding values.
+In 1938, Norwegian mathematician Herman Ole Andreas Wold described the decomposition of stationary time-series. He observed that stationary time-series can be expressed as the sum of a deterministic component (autoregressive) and a stochastic component (noise). This decomposition is termed after him today, as Wold's decomposition.
+This work was later, in 1951, generalized to multivariate time-series in a Ph.D. thesis ("Hypothesis Testing in Time-Series") by New Zealander Peter Whittle, with Wold as his advisor. Peter Whittle is also credited with the integration of the AR and MA models into one, as the autoregressive moving average (ARMA). This was another milestone in the history of time-series modeling, bringing together the work of Yule and Hooker.
+Classical time-series modeling approaches were introduced by George Box and Gwilym Jenkins in 1970 in their book "Time-Series Analysis Forecasting and Control." Most importantly, they formalized the ARIMA and ARMAX models and described how to apply them to time-series forecasting. 
+
 
 ## The Data
 I have a previous notebook that discusses pulling the data from the Alpha Vantage API, cleaning it, and testing for stationarity. The data is not stationary and needed to be differenced, which is why the analysis workflows use different data depending on the step. We'll talk about the importance of using differenced data in the simple models and why we don't need to difference the data in the (S)ARIMA models.
