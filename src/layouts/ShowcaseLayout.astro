@@ -1,0 +1,24 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Example content / layout preview',
+  description = 'A noindex design preview using explicitly illustrative content.',
+} = Astro.props;
+---
+
+<BaseLayout title={`${title} — Grafton Cook`} description={description} noindex image={null}>
+  <aside class="showcase-banner" aria-label="Showcase notice">
+    <div class="shell">
+      <strong>Example content / layout preview</strong>
+      <span>No projects, measurements or releases shown here describe completed work.</span>
+      <a href="/">Return to the public site</a>
+    </div>
+  </aside>
+  <slot />
+</BaseLayout>

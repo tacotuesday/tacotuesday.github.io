@@ -1,0 +1,49 @@
+---
+import ShowcaseLayout from '../../../layouts/ShowcaseLayout.astro';
+import { showcaseWriting } from '../../../data/showcase';
+
+type Entry = (typeof showcaseWriting)[number];
+export function getStaticPaths() {
+  return showcaseWriting.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+interface Props {
+  entry: Entry;
+}
+const { entry } = Astro.props;
+---
+
+<ShowcaseLayout title={`${entry.title} — example article`} description={entry.description}>
+  <article class="article-page shell">
+    <header class="article-header">
+      <p class="eyebrow">Example engineering note</p><h1>{entry.title}</h1><p class="hero-summary">
+        {entry.description}
+      </p><time class="meta" datetime={entry.date}
+        >{new Date(entry.date).toLocaleDateString('en-US', { dateStyle: 'long' })}</time
+      >
+    </header>
+    <div class="article-grid">
+      <aside class="toc">
+        <p class="meta">On this page</p><ol>
+          {
+            entry.sections.map(([title], index) => (
+              <li>
+                <a href={`#section-${index + 1}`}>{title}</a>
+              </li>
+            ))
+          }
+        </ol>
+      </aside><div class="prose">
+        {
+          entry.sections.map(([title, body], index) => (
+            <section>
+              <>
+                <h2 id={`section-${index + 1}`}>{title}</h2>
+                <p>{body}</p>
+              </>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </article>
+</ShowcaseLayout>

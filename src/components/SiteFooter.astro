@@ -1,0 +1,19 @@
+---
+import { siteConfig } from '../site-config';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell footer-inner">
+    <p class="footer-note">Built for signal, not spectacle.</p>
+    <nav aria-label="Footer navigation">
+      <ul class="footer-links">
+        <li><a href={siteConfig.github} rel="me">GitHub</a></li>
+        <li><a href={siteConfig.linkedin} rel="me">LinkedIn</a></li>
+        <li><a href="/rss.xml">RSS</a></li>
+      </ul>
+    </nav>
+    <p class="copyright">© {year} Grafton Cook</p>
+  </div>
+</footer>

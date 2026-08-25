@@ -1,0 +1,16 @@
+---
+import RedirectPage from '../../components/RedirectPage.astro';
+import { archiveProjects, type ArchiveProject } from '../../data/archive';
+export function getStaticPaths() {
+  return archiveProjects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+interface Props {
+  project: ArchiveProject;
+}
+const { project } = Astro.props;
+---
+
+<RedirectPage
+  target={`/archive/${project.slug}/`}
+  title="This project is now in the learning archive"
+/>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { archiveProjects, type ArchiveProject } from '../../data/archive';
+
+export function getStaticPaths() {
+  return archiveProjects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+interface Props {
+  project: ArchiveProject;
+}
+const { project } = Astro.props;
+---
+
+<BaseLayout
+  title={`${project.title} — learning archive`}
+  description={project.summary}
+  pageType="article"
+>
+  <article class="archive-project">
+    <aside class="archive-banner">
+      <div class="shell">
+        <strong>Learning archive</strong><span>{project.label}. Not current portfolio work.</span>
+      </div>
+    </aside>
+    <header class="shell page-hero case-hero">
+      <div>
+        <p class="eyebrow">Archive / {project.year}</p>
+        <h1>{project.title}</h1>
+        <p class="hero-summary">{project.summary}</p>
+      </div>
+      <p class="archive-note">{project.dataNote}</p>
+    </header>
+    <div class="shell archive-body">
+      <section>
+        <p class="meta">Scope</p>
+        <h2>What the exercise addressed</h2>
+        <p>{project.problem}</p>
+      </section>
+      <section>
+        <p class="meta">Approach</p>
+        <h2>What was built or analyzed</h2>
+        <ol>{project.approach.map((item) => <li>{item}</li>)}</ol>
+      </section>
+      <section>
+        <p class="meta">Evidence retained</p>
+        <h2>Original screenshots and charts</h2>
+        <p>{project.record}</p>
+        <div class="archive-gallery">
+          {
+            project.images.map((image) => (
+              <figure>
+                <>
+                  <img src={image.src} alt={image.alt} loading="lazy" />
+                  <figcaption>{image.caption}</figcaption>
+                </>
+              </figure>
+            ))
+          }
+        </div>
+      </section>
+      <section class="case-links">
+        <p class="meta">Source</p>
+        <h2>Repository</h2>
+        <p><a href={project.repository}>View the archived project repository ↗</a></p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

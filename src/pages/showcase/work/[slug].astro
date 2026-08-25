@@ -1,0 +1,130 @@
+---
+import ShowcaseLayout from '../../../layouts/ShowcaseLayout.astro';
+import { showcaseProjects, type ShowcaseProject } from '../../../data/showcase';
+
+export function getStaticPaths() {
+  return showcaseProjects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: ShowcaseProject;
+}
+const { project } = Astro.props;
+---
+
+<ShowcaseLayout title={`${project.title} — example case study`} description={project.summary}>
+  <article class="case-study showcase-case">
+    <header class="shell page-hero case-hero">
+      <div>
+        <p class="eyebrow">Example case study · public/synthetic data</p><h1>{project.title}</h1><p
+          class="outcome"
+        >
+          {project.outcome}
+        </p>
+      </div>
+      <dl class="case-meta">
+        <div><dt>Status</dt><dd>{project.status}</dd></div><div>
+          <dt>Technology</dt><dd>{project.technology.join(', ')}</dd>
+        </div><div><dt>Evidence</dt><dd>Illustrative layout only</dd></div>
+      </dl>
+    </header>
+    <figure class="case-media shell-wide">
+      <img src={project.screenshot} alt={project.screenshotAlt} width="1600" height="900" />
+    </figure>
+    <div class="case-body shell">
+      <section>
+        <p class="meta">01 / Problem</p><h2>The problem and why it is difficult</h2><p>
+          {project.problem}
+        </p>
+      </section>
+      <section>
+        <p class="meta">02 / Boundaries</p><h2>Constraints and explicit non-goals</h2><div
+          class="two-up"
+        >
+          <div>
+            <h3>Constraints</h3><ul>{project.constraints.map((item) => <li>{item}</li>)}</ul>
+          </div><div>
+            <h3>Non-goals</h3><ul>{project.nonGoals.map((item) => <li>{item}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <p class="meta">03 / Architecture</p><h2>Architecture diagram</h2><figure
+          class="architecture-figure"
+        >
+          <img
+            src={project.architecture}
+            alt={project.architectureAlt}
+            width="1600"
+            height="900"
+            loading="lazy"
+          />
+        </figure>
+      </section>
+      <section>
+        <p class="meta">04 / Data</p><h2>Data engineering and quality controls</h2><p>
+          {project.dataEngineering}
+        </p>
+      </section>
+      <section>
+        <p class="meta">05 / Modeling</p><h2>Baselines, evaluation and error analysis</h2><p>
+          {project.modeling}
+        </p>
+      </section>
+      <section>
+        <p class="meta">06 / Delivery</p><h2>Deployment and CI/CD</h2><p>{project.deployment}</p>
+      </section>
+      <section>
+        <p class="meta">07 / Operations</p><h2>Observability, security and cost</h2><p>
+          {project.operations}
+        </p>
+      </section>
+      <section>
+        <p class="meta">08 / Evidence</p><h2>Results table</h2><div class="example-results-note">
+          Illustrative table structure only. A production case study cannot publish until each row
+          has a measured value, method and date.
+        </div><div class="table-wrap">
+          <table>
+            <thead><tr><th>Measure</th><th>Value</th><th>Method</th><th>Measured</th></tr></thead
+            ><tbody
+              ><tr
+                ><th scope="row">Primary decision metric</th><td>Replace with verified value</td><td
+                  >Document evaluation protocol</td
+                ><td>Record measurement date</td></tr
+              ><tr
+                ><th scope="row">Baseline comparison</th><td>Replace with verified value</td><td
+                  >Name baseline and holdout</td
+                ><td>Record measurement date</td></tr
+              ></tbody
+            >
+          </table>
+        </div>
+      </section>
+      <section>
+        <p class="meta">09 / Decisions</p><h2>Failure modes, limitations and next decisions</h2><div
+          class="three-up"
+        >
+          <div>
+            <h3>Failure modes</h3><ul>{project.failureModes.map((item) => <li>{item}</li>)}</ul>
+          </div><div>
+            <h3>Limitations</h3><ul>{project.limitations.map((item) => <li>{item}</li>)}</ul>
+          </div><div>
+            <h3>Next decisions</h3><ul>{project.nextDecisions.map((item) => <li>{item}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+      <section class="case-links">
+        <p class="meta">10 / Source</p><h2>Repository, demo, design document and release</h2><ul
+          class="example-link-list"
+        >
+          <li>Repository link placement</li><li>Live or recorded demo placement</li><li>
+            Design document placement
+          </li><li>Release link placement</li>
+        </ul>
+      </section>
+    </div>
+  </article>
+</ShowcaseLayout>

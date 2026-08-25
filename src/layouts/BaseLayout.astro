@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import Analytics from '../components/Analytics.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { publishedLab, publishedProjects, publishedWriting } from '../lib/content';
+import { siteConfig } from '../site-config';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string | null;
+  noindex?: boolean;
+  pageType?: 'website' | 'article';
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  image = '/og.png',
+  noindex = false,
+  pageType = 'website',
+  structuredData,
+} = Astro.props;
+
+const [projects, writing, lab] = await Promise.all([
+  getCollection('projects'),
+  getCollection('writing'),
+  getCollection('lab'),
+]);
+
+const navItems = [
+  ...(publishedProjects(projects).length ? [{ href: '/work/', label: 'Work' }] : []),
+  ...(publishedWriting(writing).length ? [{ href: '/writing/', label: 'Writing' }] : []),
+  ...(publishedLab(lab).length ? [{ href: '/lab/', label: 'Lab' }] : []),
+  { href: '/about/', label: 'About' },
+];
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const socialImage = image ? new URL(image, Astro.site) : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f3f0e7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101719" media="(prefers-color-scheme: dark)" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <link rel="canonical" href={canonical} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Grafton Cook — Writing"
+      href="/rss.xml"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content={pageType} />
+    <meta property="og:site_name" content="Grafton Cook" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    {
+      socialImage && (
+        <meta property="og:image:alt" content="Grafton Cook — forecasting and decision systems" />
+      )
+    }
+    <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    <title>{title}</title>
+    {
+      structuredData && (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+      )
+    }
+    {siteConfig.analyticsEnabled && <Analytics id={siteConfig.analyticsId} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <SiteHeader navItems={navItems} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { publishedProjects } from '../../lib/content';
+
+const projects = publishedProjects(await getCollection('projects'));
+---
+
+<BaseLayout
+  title="Work — Grafton Cook"
+  description="Independent forecasting, decision-system and data-product case studies built with public or synthetic data."
+>
+  <header class="shell page-hero compact-hero">
+    <div>
+      <p class="eyebrow">Work / systems and evidence</p>
+      <h1>Independent systems, shown with the decisions behind them.</h1>
+      <p class="hero-summary">
+        Public and synthetic-data work presented through architecture, baselines, error analysis,
+        operating constraints and verified measurements.
+      </p>
+    </div>
+  </header>
+
+  <section class="current-build section-pad" aria-labelledby="work-current-title">
+    <div class="shell current-grid">
+      <div>
+        <p class="meta">Independent work · publication standard</p>
+        <h2 id="work-current-title">Public work needs evidence.</h2>
+        <p class="lede">
+          Current professional work is not represented here. Case studies appear only when
+          independent work can be shown honestly with public or synthetic data.
+        </p>
+      </div>
+      <div class="milestones">
+        <p class="meta">Publication gate</p>
+        <ol>
+          <li><span>01</span> Reproducible public-data ingestion</li>
+          <li><span>02</span> Time-aware evaluation against clear baselines</li>
+          <li><span>03</span> Documented limits, failure modes and operating costs</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {
+    projects.length > 0 && (
+      <section class="shell section-pad" aria-labelledby="project-index-title">
+        <div class="section-heading">
+          <p class="meta">Published case studies</p>
+          <h2 id="project-index-title">Selected work</h2>
+        </div>
+        <div class="editorial-list">
+          {projects.map((entry, index) => (
+            <a href={`/work/${entry.data.slug}/`}>
+              <span class="meta">{String(index + 1).padStart(2, '0')}</span>
+              <strong>{entry.data.title}</strong>
+              <span>{entry.data.summary}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <aside class="archive-callout shell">
+    <p class="meta">Earlier work</p>
+    <p>Four tutorial-scale learning projects remain available, with their limits made explicit.</p>
+    <a class="text-link" href="/archive/">Browse the learning archive →</a>
+  </aside>
+</BaseLayout>

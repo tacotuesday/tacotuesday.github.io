@@ -1,0 +1,107 @@
+---
+import ShowcaseLayout from '../../layouts/ShowcaseLayout.astro';
+import { showcaseLab, showcaseProjects, showcaseWriting } from '../../data/showcase';
+---
+
+<ShowcaseLayout title="Populated portfolio showcase">
+  <section class="hero shell section-pad showcase-hero" aria-labelledby="showcase-hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">Data scientist &amp; data engineer</p>
+      <h1 id="showcase-hero-title">
+        I build forecasting and decision systems for messy operational data.
+      </h1>
+      <p class="hero-summary">
+        My work spans time-series forecasting, anomaly detection, NLP and governed data
+        products—from unreliable source data to systems people can actually operate.
+      </p>
+      <div class="actions">
+        <a class="button" href="#example-work">Explore example work</a><a class="text-link" href="/"
+          >Public homepage →</a
+        >
+      </div>
+    </div>
+    <aside class="metric-strip" aria-label="Illustrative evaluation contract">
+      <p class="meta">Example metric strip · design only</p>
+      <dl>
+        <div><dt>Evaluation</dt><dd>Rolling-origin</dd></div>
+        <div><dt>Baseline</dt><dd>Seasonal naïve</dd></div>
+        <div><dt>Report</dt><dd>Error · bias · coverage</dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <section id="example-work" class="page-band section-pad" aria-labelledby="example-work-title">
+    <div class="shell">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="meta">Three example systems</p><h2 id="example-work-title">Featured work</h2>
+        </div><p>Future case studies lead with outcomes, evidence and operating decisions.</p>
+      </div>
+      <div class="showcase-project-grid">
+        {
+          showcaseProjects.map((project, index) => (
+            <a href={`/showcase/work/${project.slug}/`}>
+              <span class="meta">
+                0{index + 1} / {project.status}
+              </span>
+              <h3>{project.title}</h3>
+              <p>{project.summary}</p>
+              <span class="text-link">Open example case study →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="shell section-pad" aria-labelledby="showcase-writing-title">
+    <div class="section-heading split-heading">
+      <div>
+        <p class="meta">Example articles</p><h2 id="showcase-writing-title">Latest writing</h2>
+      </div><p>Durable notes, organized around technical decisions.</p>
+    </div>
+    <div class="editorial-list">
+      {
+        showcaseWriting.map((entry) => (
+          <a href={`/showcase/writing/${entry.slug}/`}>
+            <time class="meta" datetime={entry.date}>
+              {new Date(entry.date).toLocaleDateString('en-US', {
+                month: 'short',
+                year: 'numeric',
+              })}
+            </time>
+            <strong>{entry.title}</strong>
+            <span>{entry.description}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="showcase-lab section-pad" aria-labelledby="showcase-lab-title">
+    <div class="shell">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="meta">Example weekend apps</p><h2 id="showcase-lab-title">
+            Selected from the Lab
+          </h2>
+        </div><p>Small tools live independently and link back here.</p>
+      </div>
+      <div class="lab-links">
+        {
+          showcaseLab.map((entry) => (
+            <a href="/showcase/lab/">
+              <>
+                <span class="meta">
+                  {entry.status} · {entry.technology}
+                </span>
+                <strong>{entry.title}</strong>
+                <span>{entry.description}</span>
+              </>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</ShowcaseLayout>

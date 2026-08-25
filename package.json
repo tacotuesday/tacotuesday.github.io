@@ -1,0 +1,50 @@
+{
+  "name": "grafton-cook-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 127.0.0.1",
+    "start": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "npm run validate:content && ASTRO_TELEMETRY_DISABLED=1 astro build && npm run check:dist",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "validate:content": "node scripts/validate-content.mjs",
+    "check:dist": "node scripts/check-dist.mjs",
+    "test": "npm run test:unit",
+    "test:unit": "vitest run tests/unit",
+    "test:e2e": "playwright test",
+    "test:lighthouse": "node scripts/lighthouse.mjs",
+    "ci": "npm run format:check && npm run lint && npm run check && npm run test:unit && npm run build && npm run test:e2e && npm run test:lighthouse"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^6.0.0",
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^6.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@axe-core/playwright": "^4.10.2",
+    "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.3.0",
+    "chrome-launcher": "^1.0.0",
+    "eslint": "^9.39.1",
+    "eslint-plugin-astro": "^1.5.0",
+    "gray-matter": "^4.0.3",
+    "globals": "^16.0.0",
+    "lighthouse": "12.6.1",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.40.0",
+    "vitest": "^4.0.0"
+  }
+}

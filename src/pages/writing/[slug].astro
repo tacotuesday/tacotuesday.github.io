@@ -1,0 +1,72 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { publishedWriting } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const entries = publishedWriting(await getCollection('writing'));
+  return entries.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<'writing'>;
+}
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const { data } = entry;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.description,
+  datePublished: data.published.toISOString(),
+  dateModified: (data.updated ?? data.published).toISOString(),
+  author: { '@type': 'Person', name: 'Grafton Cook' },
+};
+---
+
+<BaseLayout
+  title={`${data.title} — Grafton Cook`}
+  description={data.description}
+  image={null}
+  pageType="article"
+  structuredData={structuredData}
+>
+  <article class="article-page shell">
+    <header class="article-header">
+      <p class="eyebrow">Writing / {data.tags.join(' · ')}</p>
+      <h1>{data.title}</h1>
+      <p class="hero-summary">{data.description}</p>
+      <p class="meta">
+        <time datetime={data.published.toISOString()}
+          >{data.published.toLocaleDateString('en-US', { dateStyle: 'long' })}</time
+        >
+        {
+          data.updated &&
+            ` · updated ${data.updated.toLocaleDateString('en-US', { dateStyle: 'long' })}`
+        }
+      </p>
+    </header>
+    <div class="article-grid">
+      {
+        headings.length > 1 && (
+          <aside class="toc">
+            <>
+              <p class="meta">On this page</p>
+              <ol>
+                {headings
+                  .filter((heading) => heading.depth === 2)
+                  .map((heading) => (
+                    <li>
+                      <a href={`#${heading.slug}`}>{heading.text}</a>
+                    </li>
+                  ))}
+              </ol>
+            </>
+          </aside>
+        )
+      }
+      <div class="prose"><Content /></div>
+    </div>
+  </article>
+</BaseLayout>

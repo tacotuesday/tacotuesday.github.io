@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  target: string;
+  title: string;
+}
+
+const { target, title } = Astro.props;
+const absoluteTarget = new URL(target, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={absoluteTarget} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main class="redirect-page">
+      <p class="meta">This address has moved</p>
+      <h1>{title}</h1>
+      <p><a class="button" href={target}>Continue to the current page</a></p>
+    </main>
+  </body>
+</html>

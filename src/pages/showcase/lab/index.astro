@@ -1,0 +1,38 @@
+---
+import ShowcaseLayout from '../../../layouts/ShowcaseLayout.astro';
+import { showcaseLab } from '../../../data/showcase';
+---
+
+<ShowcaseLayout title="Example Lab">
+  <header class="shell page-hero compact-hero">
+    <div>
+      <p class="eyebrow">Example Lab / independent static apps</p><h1>
+        Small tools with a narrow job.
+      </h1><p class="hero-summary">
+        This page demonstrates how finished weekend apps will be described and linked. None of these
+        example listings represents a released app.
+      </p>
+    </div>
+  </header>
+  <section class="shell section-pad">
+    <div class="lab-index">
+      {
+        showcaseLab.map((entry) => (
+          <article>
+            <>
+              <p class="meta">
+                {entry.status} · {entry.technology}
+              </p>
+              <h2>{entry.title}</h2>
+              <p>{entry.description}</p>
+              <div class="example-results-note">
+                Example app and repository links appear here only after an independent GitHub
+                project site is published.
+              </div>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</ShowcaseLayout>

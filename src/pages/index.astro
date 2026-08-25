@@ -1,0 +1,232 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { publishedLab, publishedProjects, publishedWriting } from '../lib/content';
+import { siteConfig } from '../site-config';
+
+const [projectEntries, writingEntries, labEntries] = await Promise.all([
+  getCollection('projects'),
+  getCollection('writing'),
+  getCollection('lab'),
+]);
+
+const featuredProjects = publishedProjects(projectEntries)
+  .filter((entry) => entry.data.featured)
+  .slice(0, 3);
+const latestWriting = publishedWriting(writingEntries).slice(0, 3);
+const selectedLab = publishedLab(labEntries)
+  .filter((entry) => entry.data.featured)
+  .slice(0, 3);
+const showLabPreview = selectedLab.length === 0;
+
+const personData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Grafton Cook',
+  url: new URL('/', Astro.site),
+  jobTitle: 'Data scientist and data engineer',
+  sameAs: [siteConfig.github, siteConfig.linkedin],
+  knowsAbout: [
+    'Time-series forecasting',
+    'Anomaly detection',
+    'Natural language processing',
+    'Data engineering',
+  ],
+};
+---
+
+<BaseLayout structuredData={personData}>
+  <section class="hero shell section-pad" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">Data scientist &amp; data engineer</p>
+      <h1 id="hero-title">I build forecasting and decision systems for messy operational data.</h1>
+      <p class="hero-summary">
+        My work spans time-series forecasting, anomaly detection, NLP and governed data
+        products—from unreliable source data to systems people can actually operate.
+      </p>
+      <div class="actions">
+        <a class="button" href="#current-build">See what I’m building</a>
+        <a class="text-link" href={siteConfig.github}
+          >View GitHub <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </div>
+    <aside class="hero-index" aria-label="Practice index">
+      <p class="meta">Practice / 01</p>
+      <dl>
+        <div><dt>Input</dt><dd>Operational data</dd></div>
+        <div><dt>Method</dt><dd>Statistical + engineered</dd></div>
+        <div><dt>Output</dt><dd>Decisions people can run</dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <section id="current-build" class="current-build section-pad" aria-labelledby="current-title">
+    <div class="shell current-grid">
+      <div>
+        <p class="meta status-line">
+          <span class="status-dot"></span> Independent practice · public experiments
+        </p>
+        <h2 id="current-title">Currently sharpening: ML engineering</h2>
+        <p class="lede">
+          Rebuilding fluency in modern ML engineering through focused study, reproducible exercises
+          and small public app experiments.
+        </p>
+      </div>
+      <div class="milestones">
+        <p class="meta">Current practice loop</p>
+        <ol>
+          <li><span>01</span> Revisit reproducible training and evaluation workflows</li>
+          <li><span>02</span> Practice packaging, deployment and observability</li>
+          <li><span>03</span> Ship small public apps with clear scopes and limits</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {
+    featuredProjects.length > 0 && (
+      <section class="shell section-pad" aria-labelledby="featured-work-title">
+        <div class="section-heading">
+          <p class="meta">Selected systems</p>
+          <h2 id="featured-work-title">Featured work</h2>
+        </div>
+        <div class="editorial-list">
+          {featuredProjects.map((entry, index) => (
+            <a href={`/work/${entry.data.slug}/`}>
+              <span class="meta">0{index + 1}</span>
+              <strong>{entry.data.title}</strong>
+              <span>{entry.data.summary}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="shell section-pad focus-section" aria-labelledby="focus-title">
+    <div class="section-heading split-heading">
+      <div>
+        <p class="meta">Three working concerns</p>
+        <h2 id="focus-title">Where I focus</h2>
+      </div>
+      <p>Systems that stay useful after the notebook closes.</p>
+    </div>
+    <div class="focus-grid">
+      <article>
+        <p class="meta">01 / forecast</p>
+        <h3>Forecasting under uncertainty</h3>
+        <p>Baselines, calibrated intervals and backtests designed around the decision horizon.</p>
+      </article>
+      <article>
+        <p class="meta">02 / detect</p>
+        <h3>Anomaly and change detection</h3>
+        <p>Separating unusual behavior from ordinary noise, drift and operating-regime shifts.</p>
+      </article>
+      <article>
+        <p class="meta">03 / operate</p>
+        <h3>Production data and ML systems</h3>
+        <p>
+          Quality controls, traceable data products and observable pipelines built for operators.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  {
+    latestWriting.length > 0 && (
+      <section class="shell section-pad" aria-labelledby="latest-writing-title">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="meta">Field notes</p>
+            <h2 id="latest-writing-title">Latest writing</h2>
+          </div>
+          <a class="text-link" href="/writing/">
+            All writing →
+          </a>
+        </div>
+        <div class="editorial-list">
+          {latestWriting.map((entry) => (
+            <a href={`/writing/${entry.data.slug}/`}>
+              <time class="meta" datetime={entry.data.published.toISOString()}>
+                {entry.data.published.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                })}
+              </time>
+              <strong>{entry.data.title}</strong>
+              <span>{entry.data.description}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="lab-feature section-pad" aria-labelledby="lab-title">
+    <div class="shell">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="meta">Weekend apps</p>
+          <h2 id="lab-title">Selected from the Lab</h2>
+        </div>
+        {
+          selectedLab.length > 0 ? (
+            <a class="text-link" href="/lab/">
+              Open the Lab →
+            </a>
+          ) : (
+            <p>Small public tools, built independently and released with their limits visible.</p>
+          )
+        }
+      </div>
+      {
+        showLabPreview ? (
+          <article class="lab-preview">
+            <p class="meta">In development · first public deploy</p>
+            <h3>Forecasting Frontier</h3>
+            <p>
+              A weekend app being prepared for its first public release. A live link and technical
+              notes will be added after the first deployment.
+            </p>
+          </article>
+        ) : (
+          <div class="lab-links">
+            {selectedLab.map((entry) => (
+              <a class="lab-card" href={entry.data.appUrl ?? entry.data.repositoryUrl}>
+                {entry.data.cover && (
+                  <img
+                    src={entry.data.cover.image}
+                    alt={entry.data.cover.alt}
+                    width="1200"
+                    height="631"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+                <span class="lab-card-copy">
+                  <strong>{entry.data.title}</strong>
+                  <span>{entry.data.description}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="about-preview section-pad" aria-labelledby="about-preview-title">
+    <div class="shell about-preview-grid">
+      <p class="meta">About / 04</p>
+      <div>
+        <h2 id="about-preview-title">I work across the boundary between analysis and operation.</h2>
+        <p>
+          My background combines senior data-science and data-engineering work with mechanical
+          engineering—useful training for understanding systems, constraints and failure modes.
+        </p>
+        <a class="text-link" href="/about/">More about my work →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

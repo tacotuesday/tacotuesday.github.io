@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { archiveProjects } from '../../data/archive';
+---
+
+<BaseLayout
+  title="Learning archive — Grafton Cook"
+  description="Earlier tutorial-scale data and AWS learning projects, retained with their scope and limitations made explicit."
+>
+  <header class="shell page-hero compact-hero">
+    <div>
+      <p class="eyebrow">Archive / earlier learning work</p>
+      <h1>Prior projects, kept in context.</h1>
+      <p class="hero-summary">
+        These exercises helped build fluency. They use fictional, supplied, generated or synthetic
+        scenarios and are not presented as current case studies or production systems.
+      </p>
+    </div>
+  </header>
+  <section class="shell section-pad" aria-labelledby="archive-list-title">
+    <h2 id="archive-list-title" class="visually-hidden">Archived learning projects</h2>
+    <div class="editorial-list archive-list">
+      {
+        archiveProjects.map((project, index) => (
+          <a href={`/archive/${project.slug}/`}>
+            <span class="meta">
+              {String(index + 1).padStart(2, '0')} / {project.year}
+            </span>
+            <strong>{project.title}</strong>
+            <span>{project.summary}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+  <section id="retired-theme-content" class="page-band">
+    <div class="shell narrative-grid">
+      <p class="meta">Retired theme content</p>
+      <div class="prose">
+        <h2>Gallery, video, tags and component-demo routes</h2>
+        <p>
+          Those pages came from the previous portfolio theme and were not part of Grafton’s current
+          technical work. Their old URLs point here so inbound links remain usable without
+          republishing generic template material.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

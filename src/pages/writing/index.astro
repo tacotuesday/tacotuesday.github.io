@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { publishedWriting } from '../../lib/content';
+
+const entries = publishedWriting(await getCollection('writing'));
+---
+
+<BaseLayout
+  title="Writing — Grafton Cook"
+  description="Engineering notes on forecasting, anomaly detection, data quality and operating analytical systems."
+>
+  <header class="shell page-hero compact-hero">
+    <div>
+      <p class="eyebrow">Writing / durable notes</p>
+      <h1>Notes for building analytical systems that have to keep working.</h1>
+      <p class="hero-summary">
+        Focused explanations of evaluation design, data quality, failure modes and operational
+        tradeoffs. The feed includes only published notes.
+      </p>
+    </div>
+  </header>
+  {
+    entries.length > 0 && (
+      <section class="shell section-pad" aria-labelledby="writing-index-title">
+        <h2 id="writing-index-title" class="visually-hidden">
+          Published writing
+        </h2>
+        <div class="editorial-list">
+          {entries.map((entry) => (
+            <a href={`/writing/${entry.data.slug}/`}>
+              <time class="meta" datetime={entry.data.published.toISOString()}>
+                {entry.data.published.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                })}
+              </time>
+              <strong>{entry.data.title}</strong>
+              <span>{entry.data.description}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

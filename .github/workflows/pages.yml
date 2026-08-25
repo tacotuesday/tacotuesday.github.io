@@ -1,0 +1,75 @@
+name: Quality and GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.19
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Install browser dependencies
+        run: npx playwright install --with-deps chromium
+      - name: Run formatting, lint, type, content and unit checks
+        run: npm run format:check && npm run lint && npm run check && npm run test:unit
+      - name: Build and validate the static site
+        run: npm run build
+        env:
+          PUBLIC_ENABLE_ANALYTICS: 'false'
+          SITE_URL: ${{ vars.SITE_URL }}
+      - name: Run route, responsive and accessibility tests
+        run: npm run test:e2e
+      - name: Enforce Lighthouse budgets
+        run: npm run test:lighthouse
+
+  build:
+    if: github.event_name != 'pull_request'
+    needs: quality
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+      - name: Install, build and upload the site
+        uses: withastro/action@v6
+        with:
+          node-version: 22.19
+        env:
+          PUBLIC_ENABLE_ANALYTICS: 'true'
+          SITE_URL: ${{ vars.SITE_URL }}
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: [quality, build]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,192 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { publishedProjects } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = publishedProjects(await getCollection('projects'));
+  return projects.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': ['CreativeWork', 'SoftwareSourceCode'],
+  name: data.title,
+  description: data.summary,
+  datePublished: data.published.toISOString(),
+  dateModified: data.updated.toISOString(),
+  author: { '@type': 'Person', name: 'Grafton Cook' },
+  codeRepository: data.links.repository,
+  programmingLanguage: data.technologies,
+};
+---
+
+<BaseLayout
+  title={`${data.title} — Grafton Cook`}
+  description={data.summary}
+  image={data.cover.image}
+  pageType="article"
+  structuredData={structuredData}
+>
+  <article class="case-study">
+    <header class="shell page-hero case-hero">
+      <div>
+        <p class="eyebrow">Case study · {data.status}</p>
+        <h1>{data.title}</h1>
+        <p class="outcome">{data.outcome}</p>
+      </div>
+      <dl class="case-meta">
+        <div><dt>Role</dt><dd>{data.role}</dd></div>
+        <div><dt>Published</dt><dd>{data.published.toLocaleDateString('en-US')}</dd></div>
+        <div><dt>Updated</dt><dd>{data.updated.toLocaleDateString('en-US')}</dd></div>
+        <div><dt>Technology</dt><dd>{data.technologies.join(', ')}</dd></div>
+      </dl>
+    </header>
+
+    <figure class="case-media shell-wide">
+      <img src={data.screenshot.image} alt={data.screenshot.alt} width="1600" height="900" />
+    </figure>
+
+    <div class="case-body shell">
+      <section aria-labelledby="problem-title">
+        <p class="meta">01 / Problem</p>
+        <h2 id="problem-title">The problem and why it is difficult</h2>
+        <p>{data.problem}</p>
+        <div class="source-list">
+          <h3>Data sources</h3>
+          <ul>
+            {
+              data.dataSources.map((source) => (
+                <li>
+                  <strong>{source.name}:</strong> {source.description}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="constraints-title">
+        <p class="meta">02 / Boundaries</p>
+        <h2 id="constraints-title">Constraints and explicit non-goals</h2>
+        <div class="two-up">
+          <div><h3>Constraints</h3><ul>{data.constraints.map((item) => <li>{item}</li>)}</ul></div>
+          <div><h3>Non-goals</h3><ul>{data.nonGoals.map((item) => <li>{item}</li>)}</ul></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="architecture-title">
+        <p class="meta">03 / Architecture</p>
+        <h2 id="architecture-title">Architecture</h2>
+        <figure class="architecture-figure">
+          <img
+            src={data.architecture.image}
+            alt={data.architecture.alt}
+            width="1600"
+            height="900"
+            loading="lazy"
+          />
+        </figure>
+      </section>
+
+      <section aria-labelledby="data-title">
+        <p class="meta">04 / Data</p>
+        <h2 id="data-title">Data engineering and quality controls</h2>
+        <p>{data.dataEngineering}</p>
+      </section>
+
+      <section aria-labelledby="modeling-title">
+        <p class="meta">05 / Modeling</p>
+        <h2 id="modeling-title">Baselines, evaluation and error analysis</h2>
+        <p>{data.modeling}</p>
+      </section>
+
+      <section aria-labelledby="deployment-title">
+        <p class="meta">06 / Delivery</p>
+        <h2 id="deployment-title">Deployment and CI/CD</h2>
+        <p>{data.deployment}</p>
+      </section>
+
+      <section aria-labelledby="operations-title">
+        <p class="meta">07 / Operations</p>
+        <h2 id="operations-title">Observability, security and cost</h2>
+        <p>{data.observability}</p>
+      </section>
+
+      <section aria-labelledby="results-title">
+        <p class="meta">08 / Evidence</p>
+        <h2 id="results-title">Verified measurements</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Measure</th><th>Value</th><th>Method</th><th>Measured</th></tr></thead>
+            <tbody>
+              {
+                data.verifiedMetrics.map((metric) => (
+                  <tr>
+                    <>
+                      <th scope="row">{metric.label}</th>
+                      <td>{metric.value}</td>
+                      <td>{metric.method}</td>
+                      <td>{metric.measuredAt.toLocaleDateString('en-US')}</td>
+                    </>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="limits-title">
+        <p class="meta">09 / Decisions</p>
+        <h2 id="limits-title">Failure modes, limitations and next decisions</h2>
+        <div class="three-up">
+          <div>
+            <h3>Failure modes</h3><ul>{data.failureModes.map((item) => <li>{item}</li>)}</ul>
+          </div>
+          <div><h3>Limitations</h3><ul>{data.limitations.map((item) => <li>{item}</li>)}</ul></div>
+          <div>
+            <h3>Next decisions</h3><ul>{data.nextDecisions.map((item) => <li>{item}</li>)}</ul>
+          </div>
+        </div>
+        <div class="prose mdx-body"><Content /></div>
+      </section>
+
+      <section class="case-links" aria-labelledby="links-title">
+        <p class="meta">10 / Source</p>
+        <h2 id="links-title">Repository, demo and documentation</h2>
+        <ul>
+          <li><a href={data.links.repository}>Repository ↗</a></li>
+          {
+            data.links.demo && (
+              <li>
+                <a href={data.links.demo}>Live or recorded demo ↗</a>
+              </li>
+            )
+          }
+          {
+            data.links.documentation && (
+              <li>
+                <a href={data.links.documentation}>Design document ↗</a>
+              </li>
+            )
+          }
+          {
+            data.links.release && (
+              <li>
+                <a href={data.links.release}>Release ↗</a>
+              </li>
+            )
+          }
+        </ul>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

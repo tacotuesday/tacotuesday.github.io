@@ -1,0 +1,95 @@
+---
+import { Picture } from 'astro:assets';
+import headshot from '../assets/headshot-2.jpg';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../site-config';
+
+const description =
+  'About Grafton Cook: senior data-science and data-engineering work across forecasting, anomaly detection, NLP and reliable data products.';
+
+const personData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Grafton Cook',
+  url: new URL('/about/', Astro.site),
+  jobTitle: 'Data scientist and data engineer',
+  homeLocation: { '@type': 'Place', name: 'Southern Maryland' },
+  sameAs: [siteConfig.github, siteConfig.linkedin],
+};
+---
+
+<BaseLayout title="About — Grafton Cook" description={description} structuredData={personData}>
+  <article class="shell page-hero about-hero">
+    <div>
+      <p class="eyebrow">About / Grafton Cook</p>
+      <h1>Systems thinking, from raw data to operating decisions.</h1>
+      <p class="hero-summary">
+        I do senior data-science and data-engineering work across time-series forecasting, anomaly
+        detection, NLP and governed data products.
+      </p>
+    </div>
+    <figure class="portrait">
+      <Picture
+        src={headshot}
+        formats={['avif', 'webp']}
+        widths={[320, 480, 640]}
+        sizes="(max-width: 780px) calc(100vw - 32px), 34vw"
+        alt="Grafton Cook smiling against a blue-gray background"
+        loading="eager"
+        fetchpriority="high"
+        quality={80}
+      />
+    </figure>
+  </article>
+
+  <section class="page-band">
+    <div class="shell narrative-grid">
+      <p class="meta">Working approach</p>
+      <div class="prose">
+        <h2>I care about the handoff between a model and the people expected to use it.</h2>
+        <p>
+          That means treating source reliability, definitions, baselines, evaluation windows,
+          observability and failure modes as part of the analytical problem—not cleanup work after
+          the model is finished.
+        </p>
+        <p>
+          My toolkit includes Python, SQL, PySpark and Databricks, data-pipeline architecture and
+          BI. A mechanical-engineering background shapes how I think about coupled systems,
+          operating envelopes and practical constraints.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell section-pad facts-section" aria-labelledby="facts-title">
+    <div class="section-heading">
+      <p class="meta">At a glance</p>
+      <h2 id="facts-title">The useful facts</h2>
+    </div>
+    <dl class="facts-grid">
+      <div><dt>Practice</dt><dd>Data science + data engineering</dd></div>
+      <div><dt>Methods</dt><dd>Forecasting, anomaly detection, NLP</dd></div>
+      <div><dt>Engineering</dt><dd>Python, SQL, PySpark/Databricks, pipelines, BI</dd></div>
+      <div><dt>Foundation</dt><dd>Mechanical engineering</dd></div>
+      <div><dt>Clearance</dt><dd>Active DoD Secret</dd></div>
+      <div><dt>Location</dt><dd>Southern Maryland</dd></div>
+    </dl>
+  </section>
+
+  <section id="connect" class="connect-band">
+    <div class="shell connect-grid">
+      <div>
+        <p class="meta">Connect</p>
+        <h2>Follow the work where it lives.</h2>
+      </div>
+      <div class="connect-links">
+        <a href={siteConfig.github}
+          ><strong>GitHub</strong><span>Code, experiments and releases ↗</span></a
+        >
+        <a href={siteConfig.linkedin}
+          ><strong>LinkedIn</strong><span>Professional profile ↗</span></a
+        >
+      </div>
+    </div>
+  </section>
+</BaseLayout>
