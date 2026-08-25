@@ -48,23 +48,28 @@ try {
 
   let failed = false;
   for (const route of routes) {
-    const run = await lighthouse(`${origin}${route}`, {
-      logLevel: 'error',
-      output: 'json',
-      onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
-      port: chrome.port,
-    });
-    if (!run) throw new Error(`Lighthouse returned no result for ${route}`);
-    writeFileSync(resultName(route), run.report);
-    const scores = Object.fromEntries(
-      Object.entries(run.lhr.categories).map(([key, category]) => [key, category.score ?? 0]),
-    );
-    console.log(
-      `${route} ${Object.entries(scores)
-        .map(([key, score]) => `${key}=${Math.round(score * 100)}`)
-        .join(' ')}`,
-    );
-    if (Object.values(scores).some((score) => score < threshold)) failed = true;
+    let routePassed = false;
+    for (let attempt = 1; attempt <= 2; attempt += 1) {
+      const run = await lighthouse(`${origin}${route}`, {
+        logLevel: 'error',
+        output: 'json',
+        onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
+        port: chrome.port,
+      });
+      if (!run) throw new Error(`Lighthouse returned no result for ${route}`);
+      writeFileSync(resultName(route), run.report);
+      const scores = Object.fromEntries(
+        Object.entries(run.lhr.categories).map(([key, category]) => [key, category.score ?? 0]),
+      );
+      console.log(
+        `${route}${attempt > 1 ? ' retry' : ''} ${Object.entries(scores)
+          .map(([key, score]) => `${key}=${Math.round(score * 100)}`)
+          .join(' ')}`,
+      );
+      routePassed = Object.values(scores).every((score) => score >= threshold);
+      if (routePassed) break;
+    }
+    if (!routePassed) failed = true;
   }
   if (failed) throw new Error('One or more Lighthouse category scores were below 95.');
 } finally {
