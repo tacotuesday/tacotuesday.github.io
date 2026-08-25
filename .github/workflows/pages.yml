@@ -39,7 +39,7 @@ jobs:
         run: npm run test:e2e
       - name: Enforce Lighthouse budgets
         timeout-minutes: 5
-        run: npm run test:lighthouse
+        run: npm run test:lighthouse || LIGHTHOUSE_PORT=4324 npm run test:lighthouse
 
   build:
     if: github.event_name != 'pull_request'
