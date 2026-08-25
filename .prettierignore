@@ -4,6 +4,7 @@ dist
 node_modules
 _includes
 _layouts
+_data
 _pages
 _projects
 _gallery
