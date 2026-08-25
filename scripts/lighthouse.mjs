@@ -38,24 +38,28 @@ function resultName(route) {
   return resolve(resultsDir, `${name}.json`);
 }
 
-let chrome;
 try {
   await waitForServer();
-  chrome = await chromeLauncher.launch({
-    chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
-    logLevel: 'silent',
-  });
 
   let failed = false;
   for (const route of routes) {
     let routePassed = false;
     for (let attempt = 1; attempt <= 2; attempt += 1) {
-      const run = await lighthouse(`${origin}${route}`, {
-        logLevel: 'error',
-        output: 'json',
-        onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
-        port: chrome.port,
+      const chrome = await chromeLauncher.launch({
+        chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
+        logLevel: 'silent',
       });
+      let run;
+      try {
+        run = await lighthouse(`${origin}${route}`, {
+          logLevel: 'error',
+          output: 'json',
+          onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
+          port: chrome.port,
+        });
+      } finally {
+        chrome.kill();
+      }
       if (!run) throw new Error(`Lighthouse returned no result for ${route}`);
       writeFileSync(resultName(route), run.report);
       const scores = Object.fromEntries(
@@ -73,6 +77,5 @@ try {
   }
   if (failed) throw new Error('One or more Lighthouse category scores were below 95.');
 } finally {
-  if (chrome) chrome.kill();
   server.kill('SIGTERM');
 }
