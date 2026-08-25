@@ -2,7 +2,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 
-const site = process.env.SITE_URL ?? 'https://tacotuesday.github.io';
+const site = process.env.SITE_URL?.trim() || 'https://tacotuesday.github.io';
 
 const excludedFromSitemap = [
   '/showcase/',
