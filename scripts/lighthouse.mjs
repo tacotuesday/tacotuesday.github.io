@@ -58,7 +58,7 @@ try {
           port: chrome.port,
         });
       } finally {
-        chrome.kill();
+        await chrome.kill();
       }
       if (!run) throw new Error(`Lighthouse returned no result for ${route}`);
       writeFileSync(resultName(route), run.report);
