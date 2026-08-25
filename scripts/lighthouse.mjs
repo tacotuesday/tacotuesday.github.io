@@ -39,6 +39,7 @@ function resultName(route) {
 }
 
 let chrome;
+let exitCode = 0;
 try {
   await waitForServer();
   chrome = await chromeLauncher.launch({
@@ -67,7 +68,16 @@ try {
     if (Object.values(scores).some((score) => score < threshold)) failed = true;
   }
   if (failed) throw new Error('One or more Lighthouse category scores were below 95.');
+} catch (error) {
+  console.error(error);
+  exitCode = 1;
 } finally {
   if (chrome) chrome.kill();
   server.kill('SIGTERM');
 }
+
+await Promise.all([
+  new Promise((resolveWrite) => process.stdout.write('', resolveWrite)),
+  new Promise((resolveWrite) => process.stderr.write('', resolveWrite)),
+]);
+process.exit(exitCode);
