@@ -1,0 +1,2 @@
+# Added to prevent GitHub Pages from auto-detecting _config.yml and building this as a Jekyll site.
+# This repo uses Astro with the withastro/action for deployment.
