@@ -1,13 +1,12 @@
 ---
 layout: default
-title: 🎥 Videos
+title: Videos
 description: Experience the power of moving images as they transport you to different places, evoke emotions, and ignite your imagination. Each video has been carefully chosen to deliver a memorable viewing experience that will leave you inspired, entertained, and longing for more.
 page_cover: '/images/102.jpg'
 ---
 
 <!-- begin page -->
 <div class="page container">
-
   <div class="page-head">
     <h1 class="page-title">{{ page.title }}</h1>
     {% if page.description %}
@@ -22,20 +21,21 @@ page_cover: '/images/102.jpg'
         <div class="video__content">
           {% if video.image %}
           <a href="{{ video.url | relative_url }}" class="video__image">
-            <img class="lazy" data-src="{{ video.image | relative_url }}" alt="{{ video.title }}">
+            <img class="lazy" data-src="{{ video.image | relative_url }}" alt="{{ video.title }}" />
           </a>
           {% endif %}
           <div class="video__info">
             <span class="video__icon">
               <i class="fa-brands fa-youtube"></i>
             </span>
-            <h3 class="video__title"><a href="{{ video.url | relative_url }}">{{ video.title }}</a></h3>
+            <h3 class="video__title">
+              <a href="{{ video.url | relative_url }}">{{ video.title }}</a>
+            </h3>
           </div>
         </div>
       </article>
       {% endfor %}
     </div>
   </div>
-
 </div>
 <!-- end page -->

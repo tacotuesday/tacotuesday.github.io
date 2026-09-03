@@ -26,7 +26,7 @@
             {% endif %}
           </div>
           {% if site.data.settings.author.author_bio %}
-          <p class="author__bio">{{ site.data.settings.author.author_bio }}</p>
+          <p class="author__bio">{{ site.data.settings.author.author_bio | newline_to_br }}</p>
           {% endif %}
         </div>
 
